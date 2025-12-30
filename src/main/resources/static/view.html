@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Snippet / VaultV1</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" type='text/css' href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
+</head>
+
+<body>
+
+    <div class="container" style="padding-top: 24px;">
+
+        <!-- Header: Title & Create New Action -->
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+            <h2 style="margin: 0; font-size: 1.5rem;">Shared Snippet</h2>
+            <div style="display: flex; gap: 12px;">
+                <button id="view-download-btn" onclick="downloadSnippet()" class="secondary"
+                    style="display: none; padding: 6px 12px; font-size: 13px;">Download File</button>
+                <a href="/app.html">
+                    <button class="secondary" style="padding: 6px 12px; font-size: 13px;">+ Create New</button>
+                </a>
+            </div>
+        </div>
+
+        <div id="loading" style="text-align: center; padding: 40px; color: var(--text-muted);">Loading secure content...
+        </div>
+
+        <div id="content-area" style="display: none;">
+
+            <!-- Metadata Toolbar: Language Only -->
+            <!-- Metadata Toolbar: Language & Filename -->
+            <div
+                style="display: flex; align-items: center; margin-bottom: 12px; color: var(--text-muted); font-size: 14px;">
+                <span id="language-badge"
+                    style="font-weight: 600; font-size: 1.1rem; display: flex; align-items: center; gap: 8px; color: var(--text-color);">
+                    <i id="view-lang-icon" style="font-size: 1.3rem;"></i> <span id="lang-text"></span>
+                </span>
+
+                <!-- Filename (Initially hidden) -->
+                <h1 id="snippet-filename"
+                    style="margin: 0; font-size: 1.1rem; font-weight: normal; color: var(--text-muted); display: none;">
+                </h1>
+            </div>
+
+            <!-- Code Viewer -->
+            <div class="code-wrapper">
+                <pre class="code-block" id="code-display"></pre>
+            </div>
+
+            <!-- Footer Meta -->
+            <div class="meta-info"
+                style="margin-top: 16px; font-size: 13px; color: var(--text-muted); display: flex; align-items: center; gap: 6px;">
+                <span
+                    style="display: inline-block; width: 8px; height: 8px; background-color: #2da44e; border-radius: 50%;"></span>
+                This snippet is encrypted. Auto-deletes at <span id="expiry-date"
+                    style="font-weight: 600; color: var(--text-color);">...</span>
+            </div>
+        </div>
+
+        <div id="error-area" style="display: none; text-align: center; margin-top: 50px;">
+            <h2>404 Not Found</h2>
+            <p>This snippet does not exist or has expired.</p>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+    <script>
+        // Auto-load snippet on view.html
+        window.addEventListener('load', loadSnippet);
+    </script>
+</body>
+
+</html>

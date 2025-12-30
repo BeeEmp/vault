@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register / VaultV1</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script>
+        // Theme initialization: Default to Dark
+        if (localStorage.getItem('theme') !== 'light') {
+            document.body.classList.add('dark-theme');
+        }
+    </script>
+</head>
+
+<body class="flex-center login-page dark-theme">
+
+    <div class="card">
+        <div style="text-align: center; margin-bottom: 32px;">
+            <h1 style="margin-top: 0;">Join VaultV1</h1>
+            <p>Create an account to start sharing secure snippets.</p>
+        </div>
+
+        <form id="register-form">
+            <label for="username">Choose Username</label>
+            <input type="text" id="username" name="username" required>
+
+            <label for="password">Choose Password</label>
+            <input type="password" id="password" name="password" required>
+
+            <button type="submit" style="width: 100%; margin-top: 10px;">Create Account</button>
+        </form>
+
+        <div
+            style="margin-top: 16px; text-align: center; border-top: 1px solid var(--border-color); padding-top: 16px;">
+            <p style="margin-bottom: 8px; font-size: 13px;">Already have an account?</p>
+            <a href="/index.html">
+                <button class="secondary" style="width: 100%;">Log in</button>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('register-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const btn = e.target.querySelector('button');
+
+            btn.disabled = true;
+            btn.innerText = "Creating...";
+
+            try {
+                const response = await fetch('/api/auth/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, password })
+                });
+
+                if (response.ok) {
+                    alert("Account created! You can now log in.");
+                    window.location.href = '/index.html';
+                } else {
+                    const text = await response.text();
+                    alert("Error: " + text);
+                    btn.disabled = false;
+                    btn.innerText = "Create Account";
+                }
+            } catch (err) {
+                alert("Network error");
+                btn.disabled = false;
+                btn.innerText = "Create Account";
+            }
+        });
+    </script>
+</body>
+
+</html>

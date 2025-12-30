@@ -1,0 +1,487 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;500;700&family=Poppins:wght@400;500;600;700&display=swap');
+
+:root {
+    /* GitHub Light Theme */
+    --bg-color: #ffffff;
+    --card-bg: #ffffff;
+    --header-bg: #24292f;
+    /* GitHub Dark Header */
+    --text-color: #24292f;
+    --text-muted: #57606a;
+    --border-color: #d0d7de;
+    --input-bg: #f6f8fa;
+    --accent-color: #003362;
+    /* Navy Blue */
+    --accent-hover: #002140;
+    --btn-secondary-bg: #f6f8fa;
+    --btn-secondary-border: #d0d7de;
+    --shadow-sm: 0 1px 0 rgba(27, 31, 36, 0.04);
+
+    --radius: 6px;
+
+    --font-heading: 'Poppins', sans-serif;
+    --font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+    --font-mono: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+}
+
+body.dark-theme {
+    /* GitHub Dark Dimmed */
+    --bg-color: #1c2128;
+    --card-bg: #22272e;
+    --header-bg: #2d333b;
+    --text-color: #adbac7;
+    --text-muted: #768390;
+    --border-color: #444c56;
+    --input-bg: #22272e;
+    --accent-color: #79c0ff;
+    /* Light Blue for Dark Mode contrast */
+    --accent-hover: #a5d6ff;
+    --btn-secondary-bg: #373e47;
+    --btn-secondary-border: #444c56;
+}
+
+/* Login Page Specifics */
+body.login-page {
+    background-color: #f6f8fa !important;
+    /* Natural Light Gray */
+}
+
+body.dark-theme.login-page {
+    background-color: #0d1117 !important;
+    /* GitHub Dark Dimmed Background */
+}
+
+body.flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.card {
+    background-color: var(--card-bg);
+    padding: 40px;
+    border-radius: var(--radius);
+    border: 1px solid var(--border-color);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    margin: 20px;
+}
+
+.auth-link {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    color: var(--accent-color);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.auth-link:hover {
+    text-decoration: underline;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--font-body);
+    color: var(--text-color);
+    background-color: var(--bg-color);
+    line-height: 1.5;
+    transition: none;
+    /* GitHub checks are snappy */
+}
+
+/* Utilities */
+.container {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 0 20px 40px 20px;
+}
+
+h1,
+h2,
+h3 {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    color: var(--text-color);
+    margin-bottom: 1rem;
+}
+
+p {
+    margin-bottom: 1rem;
+    color: var(--text-muted);
+}
+
+label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: var(--text-color);
+}
+
+/* Inputs & Forms */
+input,
+textarea,
+select {
+    width: 100%;
+    padding: 5px 12px;
+    background-color: var(--input-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    color: var(--text-color);
+    font-family: inherit;
+    font-size: 14px;
+    line-height: 20px;
+    margin-bottom: 16px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+    outline: none;
+    border-color: #0969da;
+    box-shadow: 0 0 0 3px rgba(9, 105, 218, 0.3);
+    background-color: var(--bg-color);
+}
+
+textarea {
+    font-family: var(--font-mono);
+    min-height: 300px;
+    font-size: 12px;
+}
+
+/* Custom Select (Styled to look like GitHub dropdowns) */
+.custom-select {
+    position: relative;
+    user-select: none;
+    margin-bottom: 16px;
+}
+
+.select-trigger {
+    background-color: var(--btn-secondary-bg);
+    border: 1px solid var(--btn-secondary-border);
+    border-radius: var(--radius);
+    padding: 5px 12px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-color);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: var(--shadow-sm);
+}
+
+.select-trigger:hover {
+    background-color: var(--bg-color);
+    /* Lighten */
+    border-color: var(--border-color);
+    /* Darker border? */
+}
+
+.select-options {
+    position: absolute;
+    top: 100%;
+    margin-top: 4px;
+    left: 0;
+    width: 300px;
+    /* GitHub dropdowns are often fixed width */
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    box-shadow: 0 8px 24px rgba(140, 149, 159, 0.2);
+    display: none;
+    z-index: 100;
+    max-height: 300px;
+    overflow-y: auto;
+    padding: 8px 0;
+}
+
+.custom-select.open .select-options {
+    display: block;
+}
+
+.option {
+    padding: 8px 16px;
+    /* GitHub list items */
+    cursor: pointer;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--text-color);
+    border-left: 2px solid transparent;
+}
+
+.option:hover {
+    background-color: var(--accent-color);
+    color: #fff;
+}
+
+/* Buttons */
+button {
+    background-color: var(--accent-color);
+    color: #ffffff;
+    border: 1px solid rgba(27, 31, 36, 0.15);
+    padding: 5px 16px;
+    border-radius: var(--radius);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    line-height: 20px;
+    box-shadow: var(--shadow-sm);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+    transition: 0.2s cubic-bezier(0.3, 0, 0.5, 1);
+    transition-property: background-color, border-color, color;
+}
+
+button:hover {
+    background-color: var(--accent-hover);
+}
+
+/* Specific Login Button Override */
+body.login-page button {
+    background-color: #0969da !important;
+    /* Force Blue */
+    border-color: rgba(27, 31, 36, 0.15);
+}
+
+body.login-page button:hover {
+    background-color: #0550ae !important;
+}
+
+/* Secondary Button (Download, Logout, Theme) - High Visibility */
+button.secondary {
+    background-color: var(--bg-color);
+    /* Match bg to pop border */
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-sm);
+    font-weight: 600;
+}
+
+button.secondary:hover {
+    background-color: var(--btn-secondary-bg);
+    border-color: var(--text-muted);
+    /* Darker border on hover */
+    color: var(--accent-color);
+    /* Color text on hover for visibility */
+}
+
+.dark-theme button.secondary {
+    background-color: #21262d;
+    border-color: #363b42;
+    color: #c9d1d9;
+}
+
+.dark-theme button.secondary:hover {
+    background-color: #30363d;
+    border-color: #8b949e;
+    color: #58a6ff;
+    /* Bright blue text on hover */
+}
+
+
+/* Header */
+.header {
+    background-color: var(--header-bg);
+    padding: 16px 20px;
+    margin-bottom: 24px;
+    color: #ffffff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header .logo {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-mono);
+    /* .txt feel */
+}
+
+/* Tabs */
+.tabs {
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 24px;
+    display: flex;
+    gap: 8px;
+}
+
+.tab {
+    padding: 8px 16px;
+    cursor: pointer;
+    border: 1px solid transparent;
+    border-bottom: none;
+    border-radius: 6px 6px 0 0;
+    font-size: 14px;
+    color: var(--text-muted);
+}
+
+.tab:hover {
+    color: var(--text-color);
+}
+
+.tab.active {
+    background-color: var(--bg-color);
+    /* Overlaps border */
+    border-color: var(--border-color);
+    color: var(--text-color);
+    font-weight: 600;
+    margin-bottom: -1px;
+    /* Cover bottom border */
+    border-bottom: 1px solid var(--bg-color);
+}
+
+/* History List */
+.history-item {
+    padding: 16px;
+    border-bottom: 1px solid var(--border-color);
+    transition: background 0.1s;
+}
+
+.history-item:hover {
+    background-color: var(--btn-secondary-bg);
+}
+
+.history-item h4 {
+    margin-bottom: 4px;
+    font-size: 16px;
+    color: var(--accent-color);
+    cursor: pointer;
+}
+
+.history-item h4:hover {
+    text-decoration: underline;
+}
+
+.history-meta {
+    font-size: 12px;
+    color: var(--text-muted);
+}
+
+
+/* Theme Toggle & Logout */
+.header-actions {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+}
+
+.text-btn {
+    background: none;
+    border: none;
+    color: #ffffff;
+    /* Always white on dark header */
+    font-weight: 600;
+    font-size: 14px;
+    opacity: 0.8;
+    padding: 0;
+    box-shadow: none;
+}
+
+.text-btn:hover {
+    background: none;
+    color: #ffffff;
+    opacity: 1;
+    text-decoration: underline;
+}
+
+/* Messages */
+#success-message {
+    margin-top: 16px;
+    padding: 16px;
+    background-color: var(--card-bg);
+    border: 1px solid var(--accent-color);
+    border-radius: var(--radius);
+    display: none;
+    box-shadow: var(--shadow-sm);
+}
+
+#success-message p {
+    color: var(--accent-color);
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+#success-message input {
+    background: var(--input-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    margin-top: 8px;
+    margin-bottom: 0;
+}
+
+/* Snippet Viewer Code Block */
+.code-wrapper {
+    margin-top: 0;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    overflow: hidden;
+    background-color: var(--input-bg);
+}
+
+.code-block {
+    padding: 20px;
+    margin: 0;
+    font-family: var(--font-mono);
+    font-size: 14px;
+    line-height: 1.5;
+    overflow-x: auto;
+    white-space: pre;
+    color: var(--text-color);
+}
+
+/* --- Specific Button Styles --- */
+
+/* Delete Button: Filled Red */
+.delete-btn {
+    background-color: #cf222e !important;
+    color: #ffffff !important;
+    border: 1px solid rgba(27, 31, 36, 0.15) !important;
+    padding: 5px 12px;
+    border-radius: var(--radius);
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.delete-btn:hover {
+    background-color: #a40e26 !important;
+    border-color: rgba(27, 31, 36, 0.15) !important;
+    text-decoration: none;
+}
+
+/* Copy Link Button: Filled Blue */
+#copy-btn {
+    background-color: #0969da;
+    color: #ffffff;
+    border: 1px solid rgba(27, 31, 36, 0.15);
+}
+
+#copy-btn:hover {
+    background-color: #0550ae;
+}
+
+/* Create Button: Filled Blue (Matching User Reference) */
+#create-btn {
+    background-color: #0969da;
+    color: #ffffff;
+    border: 1px solid rgba(27, 31, 36, 0.15);
+}
+
+#create-btn:hover {
+    background-color: #0550ae;
+}

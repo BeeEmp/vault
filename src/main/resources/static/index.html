@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login / VaultV1</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script>
+        // Check theme: Default to Dark
+        if (localStorage.getItem('theme') !== 'light') {
+            document.body.classList.add('dark-theme');
+        }
+    </script>
+</head>
+
+<body class="flex-center login-page dark-theme">
+
+    <div class="card">
+        <div style="text-align: center; margin-bottom: 24px;">
+            <h1 style="margin-top: 0;">Welcome to VaultV1</h1>
+        </div>
+
+        <!-- Standard Spring Security Form Login -->
+        <form action="/login" method="post">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" placeholder="" required>
+
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" placeholder="" required>
+
+            <button type="submit" style="width: 100%; margin-top: 10px;">Log in</button>
+        </form>
+
+        <div
+            style="margin-top: 16px; text-align: center; border-top: 1px solid var(--border-color); padding-top: 16px;">
+            <p style="margin-bottom: 8px; font-size: 13px;">Don't have an account?</p>
+            <a href="/register.html">
+                <button class="secondary" style="width: 100%;">Sign up</button>
+            </a>
+        </div>
+    </div>
+
+    </div>
+
+</body>
+
+</html>

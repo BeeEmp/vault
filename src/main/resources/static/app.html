@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>VaultV1 Dashboard</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" type='text/css' href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
+</head>
+
+<body>
+
+    <div class="container" style="padding-top: 24px;">
+
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+            <!-- Dashboard Title on the Left Side -->
+            <h2 style="margin: 0; font-size: 1.5rem;">Dashboard</h2>
+
+            <!-- Buttons on the Right Side -->
+            <div style="display: flex; gap: 12px; align-items: center;">
+                <button class="secondary" onclick="toggleTheme()" id="theme-btn"
+                    style="padding: 6px 12px; font-size: 13px;">Dark Mode</button>
+                <form action="/logout" method="post" style="margin: 0;">
+                    <button class="secondary" style="padding: 6px 12px; font-size: 13px;">Log out</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="tabs">
+            <div class="tab active" onclick="switchTab('create')">Create Snippet</div>
+            <div class="tab" onclick="switchTab('history')">My History</div>
+        </div>
+
+        <!-- CREATE TAB -->
+        <div id="create-tab">
+            <label>Snippet Name (Optional)</label>
+            <input type="text" id="snippet-title" placeholder="e.g. AuthenticationService.java">
+
+            <div style="display: flex; gap: 16px; margin-bottom: 0;">
+                <div style="flex: 2;">
+                    <label>Language</label>
+                    <div class="custom-select" id="language-select">
+                        <div class="select-trigger">
+                            <i class="devicon-java-plain"></i> <span>Java</span>
+                        </div>
+                        <div class="select-options">
+                            <div class="option" data-value="plaintext" data-icon="none"><span
+                                    style="font-family: monospace; font-weight: bold;">.txt</span> &nbsp; Plain Text
+                            </div>
+                            <div class="option" data-value="java"><i class="devicon-java-plain"></i> Java</div>
+                            <div class="option" data-value="python"><i class="devicon-python-plain"></i> Python</div>
+                            <div class="option" data-value="javascript"><i class="devicon-javascript-plain"></i>
+                                JavaScript</div>
+                            <div class="option" data-value="cplusplus"><i class="devicon-cplusplus-plain"></i> C++</div>
+                            <div class="option" data-value="csharp"><i class="devicon-csharp-plain"></i> C#</div>
+                            <div class="option" data-value="html"><i class="devicon-html5-plain"></i> HTML</div>
+                        </div>
+                        <input type="hidden" id="language" value="java">
+                    </div>
+                </div>
+
+                <div style="flex: 1;">
+                    <label>Expires In</label>
+                    <div class="custom-select" id="time-select">
+                        <div class="select-trigger"><span>6 hours</span></div>
+                        <div class="select-options">
+                            <div class="option" data-value="5">5 minutes</div>
+                            <div class="option" data-value="15">15 minutes</div>
+                            <div class="option" data-value="30">30 minutes</div>
+                            <div class="option" data-value="60">1 hour</div>
+                            <div class="option" data-value="120">2 hours</div>
+                            <div class="option" data-value="180">3 hours</div>
+                            <div class="option" data-value="360">6 hours</div>
+                        </div>
+                        <input type="hidden" id="expiry-time" value="360">
+                    </div>
+                </div>
+            </div>
+
+            <label>Code Content</label>
+            <textarea id="code-content" placeholder="Paste your code here..."></textarea>
+
+            <div style="display: flex; gap: 12px; justify-content: flex-end;">
+                <button class="secondary" onclick="downloadRawSnippet()">Download File</button>
+                <button id="create-btn" onclick="createSnippet()">Create Secure Link</button>
+            </div>
+
+            <div id="success-message">
+                <p>Snippet Created!</p>
+                <div style="display: flex; gap: 8px; align-items: center; margin-top: 8px;">
+                    <input type="text" id="snippet-link" readonly onclick="this.select()" style="margin: 0;">
+                    <button id="copy-btn" onclick="copySnippetLink()" class="secondary"
+                        style="margin: 0; white-space: nowrap;">Copy Link</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- HISTORY TAB -->
+        <div id="history-tab" style="display: none;">
+            <div id="history-list">
+                <p style="padding: 20px; text-align: center;">Loading history...</p>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+
+</html>
