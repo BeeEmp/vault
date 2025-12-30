@@ -9,6 +9,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
+/**
+ * REST Controller for User Authentication.
+ * Handles user registration.
+ */
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
@@ -19,15 +23,23 @@ public class AuthController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    /**
+     * Register a new user.
+     *
+     * @param payload Map containing "username" and "password"
+     * @return ResponseEntity with success message or error
+     */
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody Map<String, String> payload) {
         String username = payload.get("username");
         String password = payload.get("password");
 
+        // Basic validation
         if (username == null || username.isEmpty() || password == null || password.isEmpty()) {
             return ResponseEntity.badRequest().body("Username and password are required");
         }
 
+        // Check availability
         if (userRepository.findByUsername(username).isPresent()) {
             return ResponseEntity.badRequest().body("Username already exists");
         }

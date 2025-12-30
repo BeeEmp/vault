@@ -11,17 +11,29 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
+/**
+ * Service class for managing Snippets.
+ * Handles business logic for creation, retrieval, deletion, and expiry of
+ * snippets.
+ */
 public class SnippetService {
 
-    // Dependency Injection: Spring automatically injects the Repository and
-    // EncryptionService
     @Autowired
     private SnippetRepository snippetRepository;
 
     @Autowired
     private EncryptionService encryptionService;
 
-    // Logic: Create a new snippet with encryption and expiry
+    /**
+     * Create a new snippet with encrypted content.
+     *
+     * @param content         The raw content to share
+     * @param language
+     * @param expiryMinutes
+     * @param title
+     * @param creatorUsername
+     * @return The saved snippet entity
+     */
     public Snippet createSnippet(String content, String language, int expiryMinutes, String title,
             String creatorUsername) {
         Snippet snippet = new Snippet();
@@ -35,19 +47,26 @@ public class SnippetService {
         snippet.setCreatorUsername(creatorUsername);
         snippet.setCreationDate(LocalDateTime.now());
 
-        // Cap at 6 hours (360 minutes) to prevent abuse
+        // Cap at 6 hours
         if (expiryMinutes > 360)
             expiryMinutes = 360;
         if (expiryMinutes < 1)
-            expiryMinutes = 60; // Default fallback if weird value
+            expiryMinutes = 60;
 
         // Calculate expiry date based on current time
         snippet.setExpiryDate(LocalDateTime.now().plusMinutes(expiryMinutes));
 
-        return snippetRepository.save(snippet); // Save to database
+        return snippetRepository.save(snippet);
     }
 
-    // Logic: Retrieve snippet only if it exists and hasn't expired
+    /**
+     * Retrieve a snippet by ID.
+     * Decrypts content if found and not expired.
+     * Returns Empty if expired.
+     *
+     * @param id
+     * @return Optional containing the snippet if valid
+     */
     public Optional<Snippet> getSnippet(String id) {
         Optional<Snippet> snippetOpt = snippetRepository.findById(id);
         if (snippetOpt.isPresent()) {
@@ -55,6 +74,7 @@ public class SnippetService {
 
             // Check if expired
             if (LocalDateTime.now().isAfter(snippet.getExpiryDate())) {
+                // Ideally, trigger cleanup here or via a scheduled task
                 return Optional.empty(); // Treat as missing if expired
             }
             // Decrypt content for the view so user can read it
@@ -64,12 +84,23 @@ public class SnippetService {
         return Optional.empty();
     }
 
-    // List usage: Return history for specific user
+    /**
+     * Get all snippets created by a specific user.
+     *
+     * @param username The username
+     * @return List of snippets
+     */
     public List<Snippet> getSnippetsByUser(String username) {
         return snippetRepository.findByCreatorUsernameOrderByCreationDateDesc(username);
     }
 
-    // Validation: Ensure only the creator can delete their snippet
+    /**
+     * Delete a snippet if the user owns it.
+     *
+     * @param id
+     * @param username
+     * @return true if deleted, false if not found or unauthorized
+     */
     public boolean deleteSnippet(String id, String username) {
         Optional<Snippet> snippetOpt = snippetRepository.findById(id);
         if (snippetOpt.isPresent()) {

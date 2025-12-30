@@ -7,12 +7,24 @@ import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 
 @Service
+/**
+ * Service for Encrypting and Decrypting snippet content.
+ * Uses AES encryption.
+ * <p>
+ * WARNING: Uses a hardcoded key for demonstration/academic purposes.
+ * In production, use a Key Management System (KMS) or Environment Variables.
+ */
 public class EncryptionService {
 
     // Hardcoded key for demo purposes (Should be in env vars in production)
     private static final String SECRET_KEY = "ThisIsASecretKeyThisIsASecretKey"; // 32 chars for AES-256
 
-    // Algorithm: AES (Advanced Encryption Standard)
+    /**
+     * Encrypts the raw data string using AES.
+     *
+     * @param data The plaintext data
+     * @return Base64 encoded encrypted string
+     */
     public String encrypt(String data) {
         try {
             // Prepare Key
@@ -27,6 +39,12 @@ public class EncryptionService {
         }
     }
 
+    /**
+     * Decrypts the encrypted string.
+     *
+     * @param encryptedData Base64 encoded encrypted string
+     * @return The original plaintext string
+     */
     public String decrypt(String encryptedData) {
         try {
             SecretKeySpec secretKey = new SecretKeySpec(SECRET_KEY.getBytes(StandardCharsets.UTF_8), "AES");
