@@ -22,7 +22,7 @@ A secure, encrypted code snippet sharing platform built with Java Spring Boot an
 ## Project Structure
 - `src/main/java`: Backend (Controllers, Services, Models).
 - `src/main/resources/static`: Frontend (HTML, CSS, JS).
-- `data/`: Local H2 database file (created on run).
+- `data/`: Local H2 database file.
 
 ## License
 This project is licensed under the terms of the MIT license.
