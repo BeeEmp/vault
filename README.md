@@ -10,7 +10,7 @@ A secure, encrypted code snippet sharing platform built with Java Spring Boot an
 ## How to Run
 1. Open this `VaultV1` folder in your IDE.
 2. Allow the IDE to import the Maven project (it will download dependencies like Spring Boot, H2, etc.).
-3. Run the `VibeApplication` main class.
+3. Run the `VaultV1Application` main class.
 4. Open your browser to `http://localhost:8080`.
 
 ## Features
