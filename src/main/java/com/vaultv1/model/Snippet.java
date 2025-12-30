@@ -14,9 +14,7 @@ public class Snippet {
 
     @Column(columnDefinition = "TEXT")
     private String encryptedContent;
-
     private String language;
-
     private LocalDateTime creationDate;
 
     private LocalDateTime expiryDate;

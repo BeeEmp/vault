@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+
 @Service
 
 /**
@@ -20,9 +21,9 @@ import java.util.UUID;
 public class SnippetService {
     @Autowired
     private SnippetRepository snippetRepository;
+
     @Autowired
     private EncryptionService encryptionService;
-
 
     /**
      * Create a new snippet with encrypted content.

@@ -22,6 +22,10 @@
             <p>Create an account to start sharing secure snippets.</p>
         </div>
 
+        <div id="register-error"
+            style="display: none; background-color: rgba(207, 34, 46, 0.1); border: 1px solid #cf222e; color: #cf222e; padding: 12px; border-radius: 6px; margin-bottom: 16px; font-size: 14px; text-align: center;">
+        </div>
+
         <form id="register-form">
             <label for="username">Choose Username</label>
             <input type="text" id="username" name="username" required>
@@ -63,7 +67,11 @@
                     window.location.href = '/index.html';
                 } else {
                     const text = await response.text();
-                    alert("Error: " + text);
+                    // Show error in div
+                    const errorDiv = document.getElementById('register-error');
+                    errorDiv.innerText = text;
+                    errorDiv.style.display = 'block';
+
                     btn.disabled = false;
                     btn.innerText = "Create Account";
                 }
