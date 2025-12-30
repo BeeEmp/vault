@@ -9,20 +9,20 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-
 @Service
+
 /**
  * Service class for managing Snippets.
  * Handles business logic for creation, retrieval, deletion, and expiry of
  * snippets.
  */
-public class SnippetService {
 
+public class SnippetService {
     @Autowired
     private SnippetRepository snippetRepository;
-
     @Autowired
     private EncryptionService encryptionService;
+
 
     /**
      * Create a new snippet with encrypted content.
@@ -41,7 +41,6 @@ public class SnippetService {
 
         // Security: Encrypt content before saving to DB
         snippet.setEncryptedContent(encryptionService.encrypt(content));
-
         snippet.setLanguage(language);
         snippet.setTitle(title);
         snippet.setCreatorUsername(creatorUsername);

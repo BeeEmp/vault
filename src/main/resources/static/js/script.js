@@ -125,7 +125,7 @@ async function loadHistory() {
                         </div>
                         <button class="secondary delete-btn" data-id="${s.id}">
                             Delete
-                        </button> // 'delete-btn' class used for Event Delegation
+                        </button>
                     </div>
                 `).join('');
             }
